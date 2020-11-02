@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Unity Projects</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			div.scroll {
+			  background-color: #ffffff;
+			  width: 600px;
+			  height: 300px;
+			  overflow-x: auto;
+			  overflow-y: auto;
+			  text-align: center;
+			  padding: 20px;
+			  white-space: nowrap;
+			}
+		  </style>
+
+	</head>
+
+
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Logo -->
+						<h1><a href="index.html" id="logo">Unity Projects</a></h1>
+
+					<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="index.html">Home</a></li>
+							<li>
+								<a href="#">Projects</a>
+								<ul>
+									<li><a href="Unity_Projects.html">Unity Projects</a></li>
+									<li><a href="Unreal_Projects.html">Unreal Projects</a></li>
+									<li><a href="University_Projects.html">University Projects</a></li>
+									<li><a href="Miscellaneous_Projects.html">Miscellaneous Projects</a></li>
+								</ul>
+							</li>
+							<li><a href="SHMUP_Studios.html">Team SHMUP</a></li>
+							<li><a href="Showcases.html">Showcases</a></li>
+							<li><a href="Fun_Stuff.html">Fun Stuff</a></li>
+							<li><a href="About_Me.html">About Me</a></li>
+						</ul>
+					</nav>
+
+				</div>
+
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+
+							<!-- Content -->
+
+								<article>
+									<header>
+										<h2>RoVo</h2>
+										<p>2D Platformer (9/27/19 - Present)</p>
+									</header>
+									<p>RoVo is a 2D-Platforming adventure, made from the minds of Team SHMUP.</p>
+									<span class="image featured"><img src="images/01.jpg" alt="" />&Tab; - Art by Margaret Tran</span>
+
+
+
+									<h3>Description</h3>
+									<p>RoVo is a cute little robot who got displaced from his charging port! Help him get back to his charging port before he powers down.</p>
+									<p>Run and jump using a combination of platforming and puzzle skills in order to stay charged.  Use a stun gun to disable enemy robots, and avoid deadly spikes and 
+										zappers.  Seven levels combined help to demonstrate Team SHMUP's skills in the first of many games planned by our team.
+									</p>
+									<div id = "navigationLeft">
+										<div class="scroll">  
+											<p>Sample Player-Jump Snippet</p>
+												<pre>
+													<code>
+// Jump Function
+void jump()
+{
+	// Check RigidBody velocity, handle animations
+	if (myRigidBody2D.velocity.y > 0)
+	{
+		myAnimator.SetBool("isFalling", false);
+		myAnimator.SetBool("isLanding", false);
+	}
+										
+	if (myRigidBody2D.velocity.y &lt;= 0)
+	{
+		myAnimator.SetBool("isFalling", true);
+		myAnimator.SetBool("isLanding", true);
+	}
+										
+	// Handle user Input for Jumping
+	if (Input.GetKey(KeyCode.Space) && (myRigidBody2D.velocity.y >= -1 || myRigidBody2D.velocity.y &lt;= 1))
+	{
+													
+		myAnimator.SetTrigger("jumping");
+		Vector2 jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
+		myRigidBody2D.velocity += jumpVelocityToAdd;
+		myAnimator.ResetTrigger("jumping");
+	}
+}
+										
+// Check if Grounded, to prevent double jumping
+bool checkIfGrounded()
+{
+	//Handle Animation booleans and triggers for jumps and landings
+	if (myCircleCollider2D.IsTouchingLayers(LayerMask.GetMask("Platform")))
+	{
+		myAnimator.ResetTrigger("jumping");
+		myAnimator.SetBool("isLanding", false); 
+		myAnimator.SetBool("isGrounded", true);
+		return true;
+	}
+	else { myAnimator.SetBool("isGrounded", false); return false; }
+}
+											</code>
+										</pre>
+									</div>
+								</div>
+								
+								<div class="scroll">  
+									<p>Sample Stun Gun Snippet</p>
+									<pre>
+										<code>
+// Update is called once per frame
+void Update()
+{
+	//direction = destination - origin
+	Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+										
+	//calculate amount of degrees weapon must rotate in order to face the cursor
+	float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+	transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
+										
+	// If ammo is zero
+	if (shotsFired &lt; shotLimit)
+	{
+		if (timeBtwShots &lt;= 0)
+			if (Input.GetMouseButtonDown(0))
+			{
+				shoot();
+			}
+				else timeBtwShots -= Time.deltaTime;
+	}
+	if (shotsFired == shotLimit)
+	{
+		shotLimit = 0;
+		shotsFired = 0;
+		gameObject.SetActive(false);
+	}
+}
+										
+public void refillAmmo()
+{
+	shotsFired = 0;
+}
+										
+void shoot()
+{
+	Instantiate(myBlast, shotPoint.position, transform.rotation);
+	shotsFired++;
+}
+										</code>
+									</pre>
+								</div>
+
+
+
+								</article>
+
+						</div>
+					</div>
+				</section>
+
+
+				
+
+
+
+			<!-- Footer -->
+				<div id="footer">
+
+
+					<!-- Icons -->
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						</ul>
+
+					<!-- Copyright -->
+						<div class="copyright">
+							<ul class="menu">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
