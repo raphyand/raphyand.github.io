@@ -103,6 +103,12 @@ input, select, textarea {
 	appearance: none;
 }
 
+video {
+	max-width: 70%;
+	height: auto;
+  }
+
+
 /* Basic */
 
 	html {
